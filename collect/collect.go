@@ -71,7 +71,7 @@ func exchangesSelector(config config.CollectConfig) exchanges.CollectGoroutine {
 	case name == "bitflyer":
 		instance = new(exchanges.BitflyerGoroutine).Initialize(config)
 	case name == "bitmex":
-		return nil
+		instance = new(exchanges.BitMexGoroutine).Initialize(config)
 	case name == "binance":
 		return nil
 	case name == "okex":

@@ -19,6 +19,18 @@
 				,"lightning_board_snapshot_FX_BTC_JPY"
 			]
 		},{
+			"name":"BitMEX",
+			"endpoint": "wss://www.bitmex.com/realtime",
+			"channels": [
+				"connected",
+				"funding",
+				"insurance",
+				"orderBookL2:XBTUSD",
+				"orderBookL10:XBTUSD",
+				"trade:XBTUSD",
+				"tradeBin1m:XBTUSD"
+			]
+		},{
 			"name":"bitfinex",
 			"type":"websocket",
 			"endpoint": "wss://api.bitfinex.com/ws/"
@@ -36,10 +48,6 @@
 			"channels" : [
 				"btc_usd.trades"
 			]
-		},{
-			"name":"BitMEX",
-			"type":"websocket",
-			"endpoint": "wss://www.bitmex.com/realtime"
 		},{
 			"name":"CoinCheck",
 			"type":"websocket",

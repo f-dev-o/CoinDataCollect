@@ -12,8 +12,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/f-dev-o/CoinDataCollect/collect/common"
 	"github.com/f-dev-o/CoinDataCollect/collect/config"
+	"github.com/f-dev-o/CoinDataCollect/common"
 	"github.com/gorilla/websocket"
 )
 
@@ -44,7 +44,7 @@ type bitflyerRPCResponse struct {
 	} `json:"params"`
 }
 
-type subscribeParams struct {
+type bitflyerSubscribeParams struct {
 	Channel string `json:"channel"`
 }
 
@@ -168,7 +168,7 @@ func (t *BitflyerGoroutine) _connect() *websocket.Conn {
 
 	for _, channel := range t.config.Channels {
 		// エラーになった場合、パラメータが正しいと仮定するならば、数秒毎にリトライさせたい FIXME LOG出力
-		if err := client.WriteJSON(&bitflyerRPCRequest{Version: "2.0", Method: "subscribe", Params: &subscribeParams{channel}}); err != nil {
+		if err := client.WriteJSON(&bitflyerRPCRequest{Version: "2.0", Method: "subscribe", Params: &bitflyerSubscribeParams{channel}}); err != nil {
 			log.Fatal("subscribe:", err)
 
 			return nil
