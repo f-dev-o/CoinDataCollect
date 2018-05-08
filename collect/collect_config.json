@@ -1,0 +1,49 @@
+{
+	"output_options" : {
+		"dir" : "./collect/",
+		"convert_unixtime" : true
+	},
+	"targets": [
+		{
+			"name":"bitflyer",
+			"endpoint":"ws.lightstream.bitflyer.com",
+			"channels": [
+				"lightning_ticker_BTC_JPY"
+				,"lightning_board_BTC_JPY"
+				,"lightning_executions_BTC_JPY"
+				,"lightning_board_snapshot_BTC_JPY"
+
+				,"lightning_ticker_FX_BTC_JPY"
+				,"lightning_board_FX_BTC_JPY"
+				,"lightning_executions_FX_BTC_JPY"
+				,"lightning_board_snapshot_FX_BTC_JPY"
+			]
+		},{
+			"name":"bitfinex",
+			"type":"websocket",
+			"endpoint": "wss://api.bitfinex.com/ws/"
+		},{
+			"name":"bitstamp",
+			"type":"pusher",
+			"key": "de504dc5763aeef9ff52",
+			"channels" : [
+				"live_trades"
+			]
+		},{
+			"name":"BTC-E",
+			"type":"pusher",
+			"key": "c354d4d129ee0faa5c92",
+			"channels" : [
+				"btc_usd.trades"
+			]
+		},{
+			"name":"BitMEX",
+			"type":"websocket",
+			"endpoint": "wss://www.bitmex.com/realtime"
+		},{
+			"name":"CoinCheck",
+			"type":"websocket",
+			"endpoint": "wss://ws-api.coincheck.com/"
+		}
+	]
+}

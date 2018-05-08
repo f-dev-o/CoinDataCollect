@@ -1,0 +1,119 @@
+#### local setup
+git + vscode + tools  
+https://qiita.com/koara-local/items/8642d847831b6268d23e  
+https://qiita.com/sasaron397/items/ec285b64607c1e7662e0  
+
+vscode cheetsheet
+https://qiita.com/aoinu/items/681f932ce0b162cd9520
+
+
+#### 依存管理
+環境変数をディレクトリ事に変える
+https://qiita.com/kompiro/items/5fc46089247a56243a62
+https://github.com/direnv/direnv/releases
+win環境は大人しくユーザー配下を使うのが無難
+C:\Users\{user}\go\src\github.com\{github-user}\{project}
+
+```
+go get -u github.com/golang/dep/cmd/dep
+```
+
+直接パスを通すかGo/Binに配置してもOK
+https://github.com/golang/dep/releases/tag/v0.4.1
+
+
+#### パッケージ関連 コマンド
+dep init                          新しいプロジェクトをセットアップ  
+dep ensure                        プロジェクトの依存関係をインストール  
+dep ensure -update                全ての依存関係のバージョンを更新  
+dep ensure -add github.com/pkg/errors  プロジェクトに依存関係を追加  
+
+使ってないパッケージをAddしてからensureで使用するのは無理
+go get等で取得後、コーディング、dep enuse -addするしかない？(補間を機能させるため)
+
+glide install  
+godep get
+
+
+
+#### go コマンド  
+go env 環境設定確認
+go build xxx.go
+go run xxx.go
+
+
+#### 雑リンク
+https://qiita.com/mumoshu/items/0d2f2a13c6e9fc8da2a4  
+https://qiita.com/gcfuji/items/e2a3d7ce7ab8868e37f7  
+https://gist.github.com/shkumagai/6069017  
+https://qiita.com/jca02266/items/56a4fb7b07b692a6bf34
+https://ashitani.jp/golangtips/tips_map.html
+
+#### その他備忘  
+必ず一つはmainパッケージで無ければならない  
+{code}_test.go のみ同一パッケージ内にmainとして存在可能  
+
+goでのinterfaceは、制約力を持たない
+実際にinterfaceに代入するときまでわからない
+
+
+makefileでの管理が推奨されている?  
+deferはループの中で使ってはいけない　リークの原因になる  
+同一パッケージ内は問題なく参照可能  
+大文字から始まる関数は外部公開される  
+可能ならsliceを使用(メモリコピーをしない)  
+可能ならBufferを使用  
+
+simpleな並列処理  
+```
+func task1(ch chan bool) {
+	// 値を送信
+	ch <- true
+}
+
+func main() {
+	// channel作成
+	result := make(chan bool)
+	// channelを渡して任意のタスクをgoroutine
+	go task1(result)
+
+	// 値を受信　データが来るまでブロックする
+	log.Println(<-ch)
+}
+// 
+```
+複数同期実行
+```
+	var wg sync.WaitGroup
+	for i:=0; i<3; i++ {
+		wg.Add(1) // goroutine を生成するたびインクリメント
+		go func(i int) {
+			log.Println(i)
+			wg.Done() // 終了時にデクリメント
+		}(i)
+	}
+	wg.Wait() // ブロックし、全ての Done が終わったら次に進む
+```
+
+並列処理キーワード  
+channel　goroutine　select　closure  
+
+実行goroutine数  
+log.Println(runtime.NumGoroutine())  
+GOTRACEBACK=2 go run xxx.go  
+↑を付けると詳細が見えるらしい?  
+
+playground
+https://play.golang.org/p/a98RcARbu1K
+
+#### docs  
+https://golang.org/doc/effective_go.html  
+https://go-tour-jp.appspot.com/list  
+https://golang.org/doc/#articles  
+
+
+any libs  
+https://qiita.com/h_digitalhearts/items/f31914f37dc6c53b2bce
+
+docker  
+https://hub.docker.com/_/golang/

@@ -1,0 +1,8 @@
+vendor/*
+.env
+.DS_Store
+*.exe
+*.log
+debug
+collect/collect
+.vscode/*
